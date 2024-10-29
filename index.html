@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot with Flame Cursor</title>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.35/build/spline-viewer.js"></script>
+    <style>
+        /* General Body Styling */
+        body {
+            display: flex;
+            justify-content: space-between;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #575757, #898c8f, #838486); /* Gradient to match robot background */
+            color: #78c4e4;
+            overflow: hidden;
+            cursor: none; /* Hide default cursor */
+        }
+
+        /* Content Section Styling */
+        .content {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .content h1 {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 0;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .content p {
+            font-size: 1.5em;
+            margin-top: 10px;
+            font-style: italic;
+            color: #030306;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 3D Model Section Styling */
+        .threeD-container {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px); /* Creates a glassy effect */
+            border-left: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: -10px 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        spline-viewer {
+            width: 90%;
+            height: 90%;
+            border-radius: 10px;
+        }
+
+        /* Magic Flame Cursor */
+        .flame {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, rgba(0, 174, 255, 0.7), rgba(255, 69, 0, 0));
+            border-radius: 50%;
+            pointer-events: none;
+            animation: flame-flicker 0.6s infinite alternate;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        @keyframes flame-flicker {
+            0% { transform: scale(1) translateY(0px); opacity: 1; }
+            100% { transform: scale(1.5) translateY(-5px); opacity: 0.6; }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Hi, I am sham michalas</h1>
+        <p>This is my 3D model</p>
+    </div>
+    <div class="threeD-container">
+        <!-- Replace the URL with your Spline model URL -->
+        <spline-viewer url="https://prod.spline.design/VwGhJP7G0xqoRzEc/scene.splinecode"></spline-viewer>
+    </div>
+
+    <!-- JavaScript to create flame effect -->
+    <script>
+        document.addEventListener('mousemove', (e) => {
+            const flame = document.createElement('div');
+            flame.classList.add('flame');
+            flame.style.left = `${e.pageX - 10}px`;
+            flame.style.top = `${e.pageY - 10}px`;
+            document.body.appendChild(flame);
+
+            // Remove flame after 0.6s to create flickering effect
+            setTimeout(() => flame.remove(), 600);
+        });
+    </script>
+</body>
+</html>
